@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PLCcom.View.OnePage"
+             xmlns:viewmodel="clr-namespace:PLCcom.ViewModel"
+             x:DataType="viewmodel:OneViewModel"
+             Title="OnePage">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to OnePage"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button Text="Go Back SetupPage"
+                Command="{Binding BackDetailCommand}"
+                Margin="5"/>
+    </VerticalStackLayout>
+</ContentPage>

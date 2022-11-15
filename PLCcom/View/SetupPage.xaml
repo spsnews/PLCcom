@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PLCcom.SetupPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:PLCcom.ViewModel"
+             x:DataType="viewmodel:SetupViewModel"
+             Title="SetupPage">
+
+    <!--<VerticalStackLayout>
+        <Label 
+            Text="Welcome to PLC Setup"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        -->
+    <!--<Button Text="Go Back"
+                Command="{Binding BackCommand}"
+                HorizontalOptions="Center"/>-->
+    <!--
+
+        <Button Text="Go Back DetailPage"
+                Command="{Binding BackDetailCommand}"
+                HorizontalOptions="Center"/>
+
+    </VerticalStackLayout>-->
+    <!--<Grid RowDefinitions="100, 100,100, Auto,*"
+          ColumnDefinitions=".25*,.25*,.25*,.25*"
+          Padding="10"
+          RowSpacing="10">
+        
+        <Label 
+            Text="Welcome to PLC Setup"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Button Text="Go Back DetailPage"
+                Command="{Binding BackDetailCommand}"
+                HorizontalOptions="Center"
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"/>
+        
+
+
+    </Grid>-->
+    <Grid Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition  />
+            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <BoxView Color="Green" />
+        <Label Text="Row 0, Column 0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <BoxView Grid.Column="1"
+                 Color="Blue" />
+        <Label Grid.Column="1"
+               Text="Row 0, Column 1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <BoxView Grid.Row="0" Grid.Column="2" Color="LightGreen" />
+        <Label Grid.Row="0" Grid.Column="2" 
+               Text="Row 0, Column 2"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <BoxView Grid.Row="1"
+                 Color="Teal" />
+        <Label Grid.Row="1"
+               Text="Row 1, Column 0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <BoxView Grid.Row="1"
+                 Grid.Column="1"
+                 Color="Purple" />
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Text="Row1, Column 1"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <BoxView Grid.Row="1" Grid.Column="2" Color="LightPink" />
+        <Label Grid.Row="1" Grid.Column="2" 
+               Text="Row 1, Column 2"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <BoxView Grid.Row="2"
+                 Grid.ColumnSpan="3"
+                 Color="Red" />
+        <Label Grid.Row="2"
+               Grid.ColumnSpan="3"
+               Text="Row 2, Columns 0 and 1 and 2"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <Button Grid.Row="3"
+                Grid.Column="1"
+                Text="Go Back DetailPage"
+                Command="{Binding BackDetailCommand}"
+                Margin="5"/>
+
+        <Button Grid.Row="3"
+                Grid.Column="2"
+                Text="Go To OnePage"
+                Command="{Binding GoToOneCommand}"
+                Margin="5"/>
+
+        <Entry  Grid.Row="4" Grid.Column="0"
+                x:Name="entry"
+                Placeholder="192.168.2.85"
+                Text="{Binding IpAddress}" />
+
+        <Button Grid.Row="4" Grid.Column="1" 
+                Command="{Binding ConnectCommand,
+                Mode=OneWay}"
+                Text="Connect" />
+
+        <Button  Grid.Row="4" Grid.Column="2" 
+                Command="{Binding DisconnectCommand,
+                 Mode=OneWay}"
+                Text="Disconnect" />
+
+        <!--<Ellipse Grid.Row="6" Grid.Column="0" 
+                 Margin="29,107,0,0"
+                 Fill="{Binding PumpState,
+                 Converter={StaticResource BooleanToBrushConverter}}"
+                 Stroke="Black" />-->
+
+        <Ellipse Grid.Row="6" Grid.Column="0"
+                Fill="{Binding PumpState, 
+                 Converter={StaticResource BooleanToBrushConverter}}"
+                 WidthRequest="50"
+                 HeightRequest="50"
+               Stroke="Black" />
+
+        <Label Grid.Row="7" Grid.Column="0"
+               Text="{Binding PumpState}"/>
+
+        <!--<Ellipse Grid.Row="6" Grid.Column="0"
+                Fill="{Binding PumpState,
+                 Converter={StaticResource BooleanToBrushConverter}}"
+                 WidthRequest="50"
+                 HeightRequest="50"
+                 HorizontalOptions="Start" />-->
+
+        <!--<Ellipse  Grid.Row="6" Grid.Column="0" 
+                 Fill="{Binding PumpState,
+                 Converter={StaticResource BooleanToBrushConverter}}"
+                 Stroke="Black" />-->
+
+        <ProgressBar
+            Grid.Row="6" Grid.Column="1"  x:Name="myprogress"     
+            Progress="{Binding TankLevel}"/>
+
+        <ProgressBar 
+            Grid.Row="6" Grid.Column="2" 
+            x:Name="progressBar"
+           Margin="10"
+           Progress="0.5" />
+
+        <!--<ProgressBar  Grid.Row="6" Grid.Column="1">
+            <ProgressBar.Behaviors>
+                <toolkit:ProgressBarAnimationBehavior
+                    x:Name="ProgressBarAnimationBehavior"
+                    Progress="{Binding TankLevel}"
+                    Length="250"/>
+            </ProgressBar.Behaviors>
+        </ProgressBar>-->
+
+
+        <Button Grid.Row="5" Grid.Column="2"
+                Command="{Binding StartCommand,
+                Mode=OneWay}"
+                Text="Start" />
+
+        <Button Grid.Row="5" Grid.Column="1"
+                Command="{Binding StopCommand,
+                Mode=OneWay}"
+                Text="Stop" />
+
+        <Label Grid.Row="7" Grid.Column="1"
+               Text="{Binding TankLevel}"/>
+
+        <Label Grid.Row="7" Grid.Column="2" Text="{Binding TimeAktuell}" />
+
+    </Grid>
+
+
+
+</ContentPage>
