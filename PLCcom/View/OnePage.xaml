@@ -14,5 +14,11 @@
         <Button Text="Go Back SetupPage"
                 Command="{Binding BackDetailCommand}"
                 Margin="5"/>
+
+        <Button
+                Command="{Binding ConnectCommand,
+                Mode=OneWay}"
+                Text="Connect" />
+
     </VerticalStackLayout>
 </ContentPage>

@@ -73,6 +73,7 @@ namespace PLCcom.Model
         {
             try
             {
+               
                 ConnectionState = ConnectionStates.Connecting;
 
                 authentication.User = "walter_gerätebau";

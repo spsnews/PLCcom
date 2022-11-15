@@ -11,6 +11,7 @@ using PLCcom.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using PLCcom.View;
+using System.Net;
 
 namespace PLCcom.ViewModel;
 
@@ -58,10 +59,12 @@ public partial class SetupViewModel : ObservableObject
 
     [RelayCommand]
     Task BackDetail() => Shell.Current.GoToAsync("../DetailPage");
+    //TODO: Refactor GoToAsync to nameof(...)
+    //TODO: Remove commented out code
 
     [RelayCommand]
     Task GoToOne() =>
-    Shell.Current.GoToAsync($"../{nameof(OnePage)}");
+    Shell.Current.GoToAsync("../OnePage");
 
     [RelayCommand]
     async Task ConnectAsync()
@@ -117,10 +120,11 @@ public partial class SetupViewModel : ObservableObject
     }
 
     S7PlcComService _plcService;
-    public SetupViewModel()
+    string ipaddress;
+    public SetupViewModel(S7PlcComService plcService)
     {
-        _plcService = new S7PlcComService();
-        IpAddress = "192.168.2.85";
+        _plcService = plcService;
+        ipaddress = "192.168.2.85";
 
         UpdateThreadGUI();
     }

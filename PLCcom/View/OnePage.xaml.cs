@@ -1,17 +1,15 @@
+using PLCcom.Model;
 using PLCcom.ViewModel;
 
 namespace PLCcom.View;
 
 public partial class OnePage : ContentPage
 {
-    //	public OnePage()
-    //	{
-    //		InitializeComponent();
-    //	}
-    //}
+
     public OnePage(OneViewModel vm)
     {
         InitializeComponent();
+
         BindingContext = vm;
     }
 

@@ -1,4 +1,5 @@
 ﻿using PLCcom.Helpers;
+using PLCcom.Model;
 using PLCcom.PlatformImplementations;
 using PLCcom.View;
 using PLCcom.ViewModel;
@@ -40,12 +41,16 @@ public static class MauiProgram
         builder.Services.AddSingleton<IConnectivity>((e) => Connectivity.Current);
         builder.Services.AddSingleton<IToast>((e) => new Toaster());
 
+        //Services
+        builder.Services.AddSingleton<S7PlcComService>();
+
+        //ViewModels
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddTransient<DetailViewModel>();
         builder.Services.AddTransient<SetupViewModel>();
         builder.Services.AddTransient<OneViewModel>();
 
-
+        //Pages
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddTransient<DetailPage>();
         builder.Services.AddTransient<SetupPage>();
