@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using PLCcom.Service;
 
 namespace PLCcom.Model
 {
-   public class S7PlcComService
+    public class S7PlcComService
     {
         //#region Private member
         //PLCcomDevice Device = new TCP_ISO_Device();
@@ -27,7 +28,7 @@ namespace PLCcom.Model
         // PLCcomDevice _client = new TCP_ISO_Device();
 
         #region Private member
-        PLCcomDevice _client = new TCP_ISO_Device();
+     PLCcomDevice _client = new TCP_ISO_Device();
         System.Resources.ResourceManager resources;
         private delegate void dlgtOnConnectionStateChange(object sender, eConnectionState e);
         #endregion
@@ -36,7 +37,7 @@ namespace PLCcom.Model
         internal static int CountOpenDialogs = 0;
         #endregion
 
-
+            
         //  PLCcomDevice _client; 
         private readonly System.Timers.Timer _timer;
         private DateTime _lastScanTime;
@@ -73,7 +74,7 @@ namespace PLCcom.Model
         {
             try
             {
-               
+
                 ConnectionState = ConnectionStates.Connecting;
 
                 authentication.User = "walter_gerätebau";
@@ -223,67 +224,76 @@ namespace PLCcom.Model
         }
 
 
+        //public async Task WriteStart()
+        //{
+        //    await Task.Run(() =>
+        //    {
+        //        //declare a WriteRequest object and
+        //        //set the request parameters
+        //        WriteDataRequest myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
+        //                                                               1,                   //DB / only for datablock operations otherwise 0
+        //                                                               0,                   //write start adress
+        //                                                               0);                  //add writable Data here
+        //                                                                                    //in  this case => write 4 bytes in DB100
+        //                                                                                    //    myWriteRequest.addByte(new byte[] { 11 });
+
+        //        myWriteRequest.addBit(true);
+
+        //        //write
+        //        Debug.WriteLine("begin write...");
+        //        WriteDataResult res = _client.WriteData(myWriteRequest);
+
+        //        //evaluate results
+        //        if (res.Quality.Equals(OperationResult.eQuality.GOOD))
+        //        {
+        //            //MessageBox.Show("Write successfull! Message: " + res.Message);
+        //            Debug.WriteLine("Write successfull! Message: " + res.Message);
+        //        }
+        //        else
+        //        {
+        //            //MessageBox.Show("Write not successfull! Message: " + res.Message);
+        //            Debug.WriteLine("Write not successfull! Message: " + res.Message);
+        //        }
+
+        //        //declare a WriteRequest object and
+        //        //set the request parameters
+        //        myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
+        //                                                               1,                 //DB / only for datablock operations otherwise 0
+        //                                                               0,
+        //                                                               0);                  //write start adress
+        //                                                                                    //add writable Data here
+        //                                                                                    //in  this case => write 4 bytes in DB100
+        //                                                                                    //    myWriteRequest.addByte(new byte[] { 11 })
+        //        Thread.Sleep(30);
+        //        myWriteRequest.addBit(false);
+
+        //        //write
+        //        Debug.WriteLine("begin write...");
+        //        res = _client.WriteData(myWriteRequest);
+
+        //        //evaluate results
+        //        if (res.Quality.Equals(OperationResult.eQuality.GOOD))
+        //        {
+        //            //MessageBox.Show("Write successfull! Message: RST" + res.Message);
+        //            Debug.WriteLine("Write successfull! Message: RST" + res.Message);
+        //        }
+        //        else
+        //        {
+        //            //MessageBox.Show("Write not successfull! Message: RST" + res.Message);
+        //            Debug.WriteLine("Write not successfull! Message: RST" + res.Message);
+        //        }
+        //    });
+        //}
+
+
+        // Folder Service
         public async Task WriteStart()
         {
             await Task.Run(() =>
             {
-                //declare a WriteRequest object and
-                //set the request parameters
-                WriteDataRequest myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
-                                                                       1,                   //DB / only for datablock operations otherwise 0
-                                                                       0,                   //write start adress
-                                                                       0);                  //add writable Data here
-                                                                                            //in  this case => write 4 bytes in DB100
-                                                                                            //    myWriteRequest.addByte(new byte[] { 11 });
-
-                myWriteRequest.addBit(true);
-
-                //write
-                Debug.WriteLine("begin write...");
-                WriteDataResult res = _client.WriteData(myWriteRequest);
-
-                //evaluate results
-                if (res.Quality.Equals(OperationResult.eQuality.GOOD))
-                {
-                    //MessageBox.Show("Write successfull! Message: " + res.Message);
-                    Debug.WriteLine("Write successfull! Message: " + res.Message);
-                }
-                else
-                {
-                    //MessageBox.Show("Write not successfull! Message: " + res.Message);
-                    Debug.WriteLine("Write not successfull! Message: " + res.Message);
-                }
-
-                //declare a WriteRequest object and
-                //set the request parameters
-                myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
-                                                                       1,                 //DB / only for datablock operations otherwise 0
-                                                                       0,
-                                                                       0);                  //write start adress
-                                                                                            //add writable Data here
-                                                                                            //in  this case => write 4 bytes in DB100
-                                                                                            //    myWriteRequest.addByte(new byte[] { 11 })
-                Thread.Sleep(30);
-                myWriteRequest.addBit(false);
-
-                //write
-                Debug.WriteLine("begin write...");
-                res = _client.WriteData(myWriteRequest);
-
-                //evaluate results
-                if (res.Quality.Equals(OperationResult.eQuality.GOOD))
-                {
-                    //MessageBox.Show("Write successfull! Message: RST" + res.Message);
-                    Debug.WriteLine("Write successfull! Message: RST" + res.Message);
-                }
-                else
-                {
-                    //MessageBox.Show("Write not successfull! Message: RST" + res.Message);
-                    Debug.WriteLine("Write not successfull! Message: RST" + res.Message);
-                }
+                WriteToPlc.WriteStart(_client);
             });
         }
-
         public async Task WriteBit()
         {
             await Task.Run(() =>
@@ -389,66 +399,75 @@ namespace PLCcom.Model
                 }
             });
         }
+        //public async Task WriteStop()
+        //{
+        //    await Task.Run(() =>
+        //    {
+        //        //declare a WriteRequest object and
+        //        //set the request parameters
+        //        WriteDataRequest myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
+        //                                                               1,                 //DB / only for datablock operations otherwise 0
+        //                                                               0,
+        //                                                               1);                  //write start adress
+        //                                                                                    //add writable Data here
+        //                                                                                    //in  this case => write 4 bytes in DB100
+        //                                                                                    //    myWriteRequest.addByte(new byte[] { 11 });
+        //        myWriteRequest.addBit(true);
+
+        //        //write
+        //        Debug.WriteLine("begin write...");
+        //        WriteDataResult res = _client.WriteData(myWriteRequest);
+
+        //        //evaluate results
+        //        if (res.Quality.Equals(OperationResult.eQuality.GOOD))
+        //        {
+        //            //MessageBox.Show("Write successfull! Message: " + res.Message);
+        //            Debug.WriteLine("Write successfull! Message: " + res.Message);
+        //        }
+        //        else
+        //        {
+        //            //MessageBox.Show("Write not successfull! Message: " + res.Message);
+        //            Debug.WriteLine("Write not successfull! Message: " + res.Message);
+        //        }
+
+        //        //declare a WriteRequest object and
+        //        //set the request parameters
+        //        myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
+        //                                                               1,                 //DB / only for datablock operations otherwise 0
+        //                                                               0,
+        //                                                               1);                  //write start adress
+        //                                                                                    //add writable Data here
+        //                                                                                    //in  this case => write 4 bytes in DB100
+        //                                                                                    //    myWriteRequest.addByte(new byte[] { 11 })
+        //        Thread.Sleep(30);
+        //        myWriteRequest.addBit(false);
+
+        //        //write
+        //        Debug.WriteLine("begin write...");
+        //        res = _client.WriteData(myWriteRequest);
+
+        //        //evaluate results
+        //        if (res.Quality.Equals(OperationResult.eQuality.GOOD))
+        //        {
+        //            //MessageBox.Show("Write successfull! Message: RST" + res.Message);
+        //            Debug.WriteLine("Write successfull! Message: RST" + res.Message);
+        //        }
+        //        else
+        //        {
+        //            //MessageBox.Show("Write not successfull! Message: RST" + res.Message);
+        //            Debug.WriteLine("Write not successfull! Message: RST" + res.Message);
+        //        }
+        //    });
+        //}
+
         public async Task WriteStop()
         {
             await Task.Run(() =>
             {
-                //declare a WriteRequest object and
-                //set the request parameters
-                WriteDataRequest myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
-                                                                       1,                 //DB / only for datablock operations otherwise 0
-                                                                       0,
-                                                                       1);                  //write start adress
-                                                                                            //add writable Data here
-                                                                                            //in  this case => write 4 bytes in DB100
-                                                                                            //    myWriteRequest.addByte(new byte[] { 11 });
-                myWriteRequest.addBit(true);
-
-                //write
-                Debug.WriteLine("begin write...");
-                WriteDataResult res = _client.WriteData(myWriteRequest);
-
-                //evaluate results
-                if (res.Quality.Equals(OperationResult.eQuality.GOOD))
-                {
-                    //MessageBox.Show("Write successfull! Message: " + res.Message);
-                    Debug.WriteLine("Write successfull! Message: " + res.Message);
-                }
-                else
-                {
-                    //MessageBox.Show("Write not successfull! Message: " + res.Message);
-                    Debug.WriteLine("Write not successfull! Message: " + res.Message);
-                }
-
-                //declare a WriteRequest object and
-                //set the request parameters
-                myWriteRequest = new WriteDataRequest(eRegion.DataBlock,   //Region
-                                                                       1,                 //DB / only for datablock operations otherwise 0
-                                                                       0,
-                                                                       1);                  //write start adress
-                                                                                            //add writable Data here
-                                                                                            //in  this case => write 4 bytes in DB100
-                                                                                            //    myWriteRequest.addByte(new byte[] { 11 })
-                Thread.Sleep(30);
-                myWriteRequest.addBit(false);
-
-                //write
-                Debug.WriteLine("begin write...");
-                res = _client.WriteData(myWriteRequest);
-
-                //evaluate results
-                if (res.Quality.Equals(OperationResult.eQuality.GOOD))
-                {
-                    //MessageBox.Show("Write successfull! Message: RST" + res.Message);
-                    Debug.WriteLine("Write successfull! Message: RST" + res.Message);
-                }
-                else
-                {
-                    //MessageBox.Show("Write not successfull! Message: RST" + res.Message);
-                    Debug.WriteLine("Write not successfull! Message: RST" + res.Message);
-                }
+                WriteToPlc.WriteStop(_client);
             });
         }
+
 
 
         public async Task WriteOut_0_0()
@@ -537,7 +556,7 @@ namespace PLCcom.Model
             {
                 _timer.Stop();
                 ScanTime = DateTime.Now - _lastScanTime;
-             RefreshValues();
+                RefreshValues();
                 OnValuesRefreshed();
             }
             finally

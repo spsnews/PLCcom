@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿//using Android.OS;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PLCcom.Model;
+using PLCcom.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,18 @@ public partial class OneViewModel : ObservableObject
 {
 
     S7PlcComService _plcService;
+    PLCcomDevice _client;
 
     public OneViewModel(S7PlcComService plcService)
     {
-        _plcService= plcService;
+        _plcService = plcService;
     }
+
+    public OneViewModel(PLCcomDevice client)
+    {
+        _client = client;
+    }
+
 
     [RelayCommand]
     Task BackDetail() => Shell.Current.GoToAsync("../SetupPage");
@@ -56,6 +65,55 @@ public partial class OneViewModel : ObservableObject
         }
 
         //    Debug.WriteLine("Button Connect betättigt");
+
+        //[RelayCommand]
+        //async Task StopNeuAsync()
+        //{
+        //    await _plcService.WriteStop();
+        //    // Debug.Writeline("wer");
+        //}
+
+    }
+
+    [RelayCommand]
+    async Task TestAsync()
+    {
+        await Shell.Current.DisplayAlert("Test",
+                      "tray again" +
+                      "", "OK");
+    }
+
+    //[RelayCommand]
+    // async Task StopNeuAsync()
+    // {
+    //       await _plcService.WriteStop();
+    ////     await WriteToPlc.WriteStop(client);
+    ///
+    // }
+
+    //[RelayCommand]
+    //async Task StopNeuAsync()
+    //{
+    //    await Task.Run(() =>
+    //    {
+    //        //await Shell.Current.DisplayAlert("StopNeu",
+    //        //              "tray again" +
+    //        //              "", "OK");
+
+    //        //await _plcService.WriteStop();
+    //        WriteToPlc.WriteStop(_client);
+    //    });
+    //}
+
+
+    [RelayCommand]
+    async Task StopNeuAsync()
+    {
+         //   await _plcService._client.WriteData()
+    
+      await _plcService.WriteStop();
+      //  WriteToPlc.WriteStop(_client);
+        //WriteToPlc.WriteStop(_client);
 
     }
 }

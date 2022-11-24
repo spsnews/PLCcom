@@ -20,5 +20,17 @@
                 Mode=OneWay}"
                 Text="Connect" />
 
+        <!--<Button Command="{Binding Stop1Command,
+                Mode=OneWay}"
+                Text="Stop" />-->
+
+        <Button Command="{Binding TestCommand}"
+                Text="Test"/>
+
+        <Button Command="{Binding StopNeuCommand}"
+                Text="StopNeu"/>
+
+
+
     </VerticalStackLayout>
 </ContentPage>
