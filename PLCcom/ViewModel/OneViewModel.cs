@@ -109,8 +109,7 @@ public partial class OneViewModel : ObservableObject
     [RelayCommand]
     async Task StopNeuAsync()
     {
-         //   await _plcService._client.WriteData()
-    
+      
       await _plcService.WriteStop();
       //  WriteToPlc.WriteStop(_client);
         //WriteToPlc.WriteStop(_client);
