@@ -28,7 +28,7 @@ namespace PLCcom.Model
         // PLCcomDevice _client = new TCP_ISO_Device();
 
         #region Private member
-     PLCcomDevice _client = new TCP_ISO_Device();
+        PLCcomDevice _client = new TCP_ISO_Device();
         System.Resources.ResourceManager resources;
         private delegate void dlgtOnConnectionStateChange(object sender, eConnectionState e);
         #endregion
@@ -37,7 +37,7 @@ namespace PLCcom.Model
         internal static int CountOpenDialogs = 0;
         #endregion
 
-            
+
         //  PLCcomDevice _client; 
         private readonly System.Timers.Timer _timer;
         private DateTime _lastScanTime;
