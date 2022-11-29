@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Media.Protection.PlayReady;
 
 namespace PLCcom.Service
 {
@@ -79,11 +78,6 @@ namespace PLCcom.Service
         }
 
         public static void WriteStop(PLCcomDevice _client)
-        {
-            WriteStop2(_client);
-        }
-
-        public static async Task WriteStop2(PLCcomDevice _client)
         {
             //await Shell.Current.DisplayAlert("Test",
             //        "tray again" +

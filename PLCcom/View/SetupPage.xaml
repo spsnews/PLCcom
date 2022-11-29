@@ -116,10 +116,15 @@
                 Command="{Binding GoToOneCommand}"
                 Margin="5"/>
 
-        <Entry  Grid.Row="4" Grid.Column="0"
+        <!--<Entry  Grid.Row="4" Grid.Column="0"
                 x:Name="entry"
                 Placeholder="192.168.2.85"
-                Text="{Binding IpAddress}" />
+                Text="{Binding IpAddress}" />-->
+
+        <Entry  Grid.Row="4" Grid.Column="0"
+                x:Name="entry"
+                Text="{Binding IpAddress}"/>
+
 
         <Button Grid.Row="4" Grid.Column="1" 
                 Command="{Binding ConnectCommand,
@@ -137,7 +142,7 @@
                  Converter={StaticResource BooleanToBrushConverter}}"
                  Stroke="Black" />-->
 
-        <Ellipse Grid.Row="6" Grid.Column="0"
+        <Ellipse Grid.Row="7" Grid.Column="0"
                 Fill="{Binding PumpState, 
                  Converter={StaticResource BooleanToBrushConverter}}"
                  WidthRequest="50"
@@ -188,6 +193,16 @@
                 Command="{Binding StopCommand,
                 Mode=OneWay}"
                 Text="Stop" />
+
+        <Button Grid.Row="5" Grid.Column="0"
+                Command="{Binding SaveDataCommand,
+                Mode=OneWay}"
+                Text="Einstellungen speichern" />
+
+        <Button Grid.Row="6" Grid.Column="0"
+                Command="{Binding LoadDataCommand,
+                Mode=OneWay}"
+                Text="Einstellungen laden" />
 
         <Label Grid.Row="7" Grid.Column="1"
                Text="{Binding TankLevel}"/>
