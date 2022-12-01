@@ -19,9 +19,9 @@
                 SemanticProperties.HeadingLevel="Level1"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"/>
 
-            <Label 
+            <!--<Label 
                 Text="{Binding Count, StringFormat='Current count: {0}'}"
                 FontSize="18"
                 FontAttributes="Bold"
@@ -32,38 +32,39 @@
                 FontAttributes="Bold"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Command="{Binding IncrementCountCommand}"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" />-->
 
-            <Button 
+            <Button WidthRequest="150"
                 Text="Navigate"
                 FontAttributes="Bold"
                 Command="{Binding NavigateCommand}"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" 
+                    Margin="50"/>
 
-            <Button 
+            <!--<Button WidthRequest="150"
                 Text="Request Bluetooth"
                 FontAttributes="Bold"
                 Command="{Binding RequestBluetoothCommand}"
                 IsVisible="{OnPlatform Android=true, Default=false}"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" />-->
 
-            <Button 
+            <!--<Button 
                 Text="Check Internet"
                 FontAttributes="Bold"
                 Command="{Binding CheckInternetCommand}"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center" />-->
 
             <Image
-                Source="walterlogo.png"
+                Source="walterlogoneu.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 WidthRequest="150"
                 HeightRequest="150"
                 HorizontalOptions="Center" />
 
-            <Button
+            <!--<Button
                 Text="Alert"
                 Clicked="OnAlertClicked"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="Center"/>-->
 
         </VerticalStackLayout>
     </ScrollView>

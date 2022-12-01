@@ -197,12 +197,12 @@
         <Button Grid.Row="5" Grid.Column="0"
                 Command="{Binding SaveDataCommand,
                 Mode=OneWay}"
-                Text="Einstellungen speichern" />
+                Text="Einstellungen\r\nspeichern"/>
 
         <Button Grid.Row="6" Grid.Column="0"
                 Command="{Binding LoadDataCommand,
                 Mode=OneWay}"
-                Text="Einstellungen laden" />
+                Text="Einstellungen\r\nladen" />
 
         <Label Grid.Row="7" Grid.Column="1"
                Text="{Binding TankLevel}"/>

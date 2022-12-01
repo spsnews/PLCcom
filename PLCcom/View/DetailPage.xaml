@@ -6,30 +6,36 @@
              x:DataType="viewmodel:DetailViewModel"
              Title="DetailPage">
 
-    <StackLayout Padding="40">
-        <Button 
+    <StackLayout Padding="40"
+                 Margin="10" 
+                 Spacing="10">
+        
+        <Button WidthRequest="200"
                 Text="Check Internet"
                 FontAttributes="Bold"
                 Command="{Binding CheckInternetCommand}"
                 HorizontalOptions="Center" />
 
-        <Button Text="Go Back"
+        <Button WidthRequest="200"
+            Text="Go Back"
                 Command="{Binding BackCommand}"
                 HorizontalOptions="Center"/>
 
-        <Button Text="Go to SetupPage"
+        <Button WidthRequest="200"
+            Text="Go to SetupPage"
                 Command="{Binding GoToSetupCommand}"
                 HorizontalOptions="Center"/>
 
-        <Button Text="Go to Another One"
+        <Button WidthRequest="200"
+            Text="Go to Another One"
                 Command="{Binding GoToAnotherCommand}"
                 HorizontalOptions="Center"/>
 
-        <Label FontSize="50"
+        <!--<Label FontSize="50"
                Text="{Binding Count}"/>
 
         <Label FontSize="50"
-               Text="{Binding Monkey.Name}"/>
+               Text="{Binding Monkey.Name}"/>-->
       
     </StackLayout>
 </ContentPage>
