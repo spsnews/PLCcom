@@ -50,6 +50,11 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\walterlogo.png" />
+	  <None Remove="userdataEmbededResource.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="userdataEmbededResource.xml" />
 	</ItemGroup>
 
 	<!--<ItemGroup>

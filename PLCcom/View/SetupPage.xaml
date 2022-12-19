@@ -55,6 +55,7 @@
             <RowDefinition/>
             <RowDefinition />
             <RowDefinition Height="100" />
+            <RowDefinition Height="100" /> 
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -142,14 +143,14 @@
                  Converter={StaticResource BooleanToBrushConverter}}"
                  Stroke="Black" />-->
 
-        <Ellipse Grid.Row="7" Grid.Column="0"
+        <Ellipse Grid.Row="8" Grid.Column="0"
                 Fill="{Binding PumpState, 
                  Converter={StaticResource BooleanToBrushConverter}}"
                  WidthRequest="50"
                  HeightRequest="50"
                Stroke="Black" />
 
-        <Label Grid.Row="7" Grid.Column="0"
+        <Label Grid.Row="9" Grid.Column="0"
                Text="{Binding PumpState}"/>
 
         <!--<Ellipse Grid.Row="6" Grid.Column="0"
@@ -204,10 +205,16 @@
                 Mode=OneWay}"
                 Text="Einstellungen\r\nladen" />
 
-        <Label Grid.Row="7" Grid.Column="1"
+        <Button Grid.Row="7" Grid.Column="0"
+                Command="{Binding LoadStartDataCommand,
+                Mode=OneWay}"
+                Text="StartWerte\r\nladen" />
+
+
+        <Label Grid.Row="8" Grid.Column="1"
                Text="{Binding TankLevel}"/>
 
-        <Label Grid.Row="7" Grid.Column="2" Text="{Binding TimeAktuell}" />
+        <Label Grid.Row="8" Grid.Column="2" Text="{Binding TimeAktuell}" />
 
     </Grid>
 

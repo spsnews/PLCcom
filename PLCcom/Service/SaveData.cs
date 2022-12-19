@@ -9,7 +9,7 @@ namespace PLCcom.Service
 {
     public class SaveData
     {
-        public static async Task SaveDatenAsync(object obj, string filename)
+        public static void SaveDaten(object obj, string filename)
         {
             XmlSerializer serializer = new XmlSerializer(obj.GetType());
             // TextWriter filestream = new StreamWriter(@"c:\temp\userdata.xml");
@@ -17,7 +17,7 @@ namespace PLCcom.Service
             serializer.Serialize(filestream, obj);
             filestream.Close();
 
-            await Shell.Current.DisplayAlert("Save successful","you have saved parameter" + "", "OK");
+         //   await Shell.Current.DisplayAlert("Save successful","you have saved parameter" + "", "OK");
         }
     }
 }
