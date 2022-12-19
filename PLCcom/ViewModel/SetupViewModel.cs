@@ -142,6 +142,9 @@ public partial class SetupViewModel : ObservableObject
         //https://www.youtube.com/watch?v=tApBDuVwCrc
         //usw...
 
+        //https://www.youtube.com/watch?v=3xqIXS1SBaU
+        //usw...
+
         // var sourceDirectoryPath = Path.Combine(Environment.CurrentDirectory, "CopyThis");
         // var sourceDirectoryInfo = new DirectoryInfo(sourceDirectoryPath);   
 
