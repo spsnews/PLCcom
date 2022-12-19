@@ -74,127 +74,118 @@ public partial class SetupViewModel : ObservableObject
     {
         try
         {
-            Daten daten = new Daten();
-            //DirectoryInfo[] cDirs = new DirectoryInfo(@"c:\").GetDirectories();
-            // Set a variable to the Documents path.
-            //string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //https://www.youtube.com/watch?v=bPaTOLxCvKU
 
+            try
+            {
+                var path = FileSystem.Current.AppDataDirectory;
+                var fullpath = Path.Combine(path, "userdata.xml");
+
+                Daten daten = new Daten();
+
+                daten.Ipaddress = IpAddress;
+                //daten.Ide = entIde.Text;
+                //daten.Programmiersprache = entProgrammiersprache.Text;
+
+                SaveData.SaveDaten(daten, fullpath);
+
+                await Shell.Current.DisplayAlert("Saved!", "Note has been saved!", "OK");
+            }
+            catch (Exception ex)
+            {
+                entProgrammiersprache.Text = ex.Message;
+                await Shell.Current.DisplayAlert("ERROR", "you have saved parameter" + ex.ToString(), "", "OK");
+            }
+        }
+
+    [RelayCommand]
+        async Task LoadDataAsync()
+        {
+            //HOT normalerweise muesste userdata.xml reichen
             string exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             string longfilename = @"" + exePath + "\\userdata.xml";
 
-            daten.Ipaddress = IpAddress;
-            //  daten.Ipaddress = "192";
-            //daten.Ide = entIde.Text;
-            //daten.Programmiersprache = entProgrammiersprache.Text;
+            //HOT if (File.Exists("userdata.xml"))
+            if (File.Exists(longfilename))
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(Daten));
+                //HOT    FileStream read = new FileStream("userdata.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
+                FileStream read = new FileStream(longfilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+                Daten daten = (Daten)xs.Deserialize(read);
 
-            //HOT userdata.xml funktioniert leider nicht         
-            //HOT SaveData.SaveDaten(daten, "userdata.xml");
-            await SaveData.SaveDatenAsync(daten, longfilename);
+                //entName.Text = daten.Name;
+                //entIde.Text = daten.Ide;
+                //entProgrammiersprache.Text = daten.Programmiersprache;
+                IpAddress = daten.Ipaddress;
 
-
-            await Shell.Current.DisplayAlert("Save new successful",
-         "you have saved parameter" +
-         "", "OK");
-
-            //  SaveData.SaveDaten(daten, @"relative/userdata.xml");
+                read.Close();
+            }
         }
-        catch (Exception ex)
+
+        [RelayCommand]
+        async Task ConnectAsync()
         {
-            await Shell.Current.DisplayAlert("ERROR",
-  "you have saved parameter" + ex.ToString(),
-  "", "OK");
-            //entProgrammiersprache.Text = ex.Message;
+            int plcType = 0;
+            //       _client = new TCP_ISO_Device(ipAddress, 0, 1, ePLCType.S7_1200_compatibel);
+            //if (selectedItemPlcType == "S7_200")
+            //    plcType = 0;
+            //if (selectedItemPlcType == "S7_300")
+            //    plcType = 1;
+            //if (selectedItemPlcType == "S7_1200")
+            //    plcType = 2;
+            //if (selectedItemPlcType == "S7_1500")
+            //    plcType = 3;
+
+            //_plcService.Connect(ipAddress, 0, 0, plcType);
+            _plcService.Connect(IpAddress, 0, 1, 2);
+
+            if (_plcService.ConnectionState == ConnectionStates.Online)
+            {
+                await Shell.Current.DisplayAlert("Connection successful",
+                           "you can change parameter" +
+                           "", "OK");
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Connection not successful",
+                           "tray again" +
+                           "", "OK");
+            }
+
+            //    Debug.WriteLine("Button Connect betättigt");
+
         }
-    }
 
-    [RelayCommand]
-    async Task LoadDataAsync()
-    {
-        //HOT normalerweise muesste userdata.xml reichen
-        string exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        string longfilename = @"" + exePath + "\\userdata.xml";
-
-        //HOT if (File.Exists("userdata.xml"))
-        if (File.Exists(longfilename))
+        [RelayCommand]
+        async Task DisconnectAsync()
         {
-            XmlSerializer xs = new XmlSerializer(typeof(Daten));
-            //HOT    FileStream read = new FileStream("userdata.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
-            FileStream read = new FileStream(longfilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-            Daten daten = (Daten)xs.Deserialize(read);
-
-            //entName.Text = daten.Name;
-            //entIde.Text = daten.Ide;
-            //entProgrammiersprache.Text = daten.Programmiersprache;
-            IpAddress = daten.Ipaddress;
-
-            read.Close();
+            _plcService.Disconnect();
+            //Device.DisConnect();
         }
-    }
 
-    [RelayCommand]
-    async Task ConnectAsync()
-    {
-        int plcType = 0;
-        //       _client = new TCP_ISO_Device(ipAddress, 0, 1, ePLCType.S7_1200_compatibel);
-        //if (selectedItemPlcType == "S7_200")
-        //    plcType = 0;
-        //if (selectedItemPlcType == "S7_300")
-        //    plcType = 1;
-        //if (selectedItemPlcType == "S7_1200")
-        //    plcType = 2;
-        //if (selectedItemPlcType == "S7_1500")
-        //    plcType = 3;
-
-        //_plcService.Connect(ipAddress, 0, 0, plcType);
-        _plcService.Connect(IpAddress, 0, 1, 2);
-
-        if (_plcService.ConnectionState == ConnectionStates.Online)
+        [RelayCommand]
+        async Task StartAsync()
         {
-            await Shell.Current.DisplayAlert("Connection successful",
-                       "you can change parameter" +
-                       "", "OK");
+            await _plcService.WriteStart();
         }
-        else
+
+        [RelayCommand]
+        async Task StopAsync()
         {
-            await Shell.Current.DisplayAlert("Connection not successful",
-                       "tray again" +
-                       "", "OK");
+            await _plcService.WriteStop();
         }
 
-        //    Debug.WriteLine("Button Connect betättigt");
-
-    }
-
-    [RelayCommand]
-    async Task DisconnectAsync()
-    {
-        _plcService.Disconnect();
-        //Device.DisConnect();
-    }
-
-    [RelayCommand]
-    async Task StartAsync()
-    {
-        await _plcService.WriteStart();
-    }
-
-    [RelayCommand]
-    async Task StopAsync()
-    {
-        await _plcService.WriteStop();
-    }
-
-    S7PlcComService _plcService;
-    // string ipaddress;
-    public SetupViewModel(S7PlcComService plcService)
-    {
-        _plcService = plcService;
-        //    ipaddress = "192.168.2.85";
-        //   ipaddress = IpAddress;
+        S7PlcComService _plcService;
+        // string ipaddress;
+        public SetupViewModel(S7PlcComService plcService)
+        {
+            _plcService = plcService;
+            //    ipaddress = "192.168.2.85";
+            //   ipaddress = IpAddress;
 
 
-        UpdateThreadGUI();
-    }
+            UpdateThreadGUI();
+        }
 
 
     private bool stop = true;

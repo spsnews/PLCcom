@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace PLCcom.Service
 {
-   public        class SaveData
+    public class SaveData
     {
         public static async Task SaveDatenAsync(object obj, string filename)
         {
@@ -17,9 +17,7 @@ namespace PLCcom.Service
             serializer.Serialize(filestream, obj);
             filestream.Close();
 
-            await Shell.Current.DisplayAlert("Save successful",
-           "you have saved parameter" +
-           "", "OK");
+            await Shell.Current.DisplayAlert("Save successful","you have saved parameter" + "", "OK");
         }
     }
 }
