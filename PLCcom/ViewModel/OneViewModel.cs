@@ -49,7 +49,8 @@ public partial class OneViewModel : ObservableObject
         //    plcType = 3;
 
         //_plcService.Connect(ipAddress, 0, 0, plcType);
-        _plcService.Connect("192.168.10.85", 0, 1, 2);
+    _plcService.Connect("192.168.10.85", 0, 1, 2);
+//        _plcService.Connect("192.168.2.85", 0, 1, 2);
 
         if (_plcService.ConnectionState == ConnectionStates.Online)
         {
